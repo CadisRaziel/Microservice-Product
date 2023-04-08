@@ -25,4 +25,6 @@ public interface ProductService {
     //delete logico, nos inativamos no banco
     //nos estamos utilizando um atribudo chamado "isAvailable" true or false
     //então faremos um delete logico, para inativar ele no banco
+
+    Optional<ProductDTO> update(Long id, ProductDTO request);
 }

@@ -130,6 +130,13 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
+    //TODO falta fazer
+    @Override
+    public Optional<ProductDTO> update(Long id, ProductDTO request) {
+        return Optional.empty();
+    }
+
+
     //diferença de um delete fisico pra um logico
     //a cima temos um logico que vamos utilizar /\ (manipulamos ele para inativar no banco)
     //a baixo temos um fisico de exemplo \/ (deletamos do banco)
@@ -145,3 +152,9 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 }
+
+
+/**
+ * O service é responsavel pelas regras de negocio
+ * e conhecer o cara que acessa a camada de dados que é o repository
+ * */
