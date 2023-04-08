@@ -11,7 +11,7 @@
 - GET: getAll()
 - GET/{id}: getById()
 - PUT/{id}: update()
-- DELETE//{id}: delete()
+- DELETE(Inactive)/{id}: inactive()
 
 ## Model
 ``` 

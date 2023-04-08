@@ -2,6 +2,7 @@ package br.com.youtube.productms.service;
 
 import br.com.youtube.productms.dto.ProductDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,4 +15,14 @@ import java.util.Optional;
 
 public interface ProductService {
     Optional<ProductDTO> create(ProductDTO request);
+
+    List<ProductDTO> getAll();
+
+    Optional<ProductDTO> getById(Long id);
+
+    boolean inactive(Long id);
+    //delete fisico, nos removemos do banco
+    //delete logico, nos inativamos no banco
+    //nos estamos utilizando um atribudo chamado "isAvailable" true or false
+    //então faremos um delete logico, para inativar ele no banco
 }
