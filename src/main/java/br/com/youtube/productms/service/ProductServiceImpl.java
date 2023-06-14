@@ -125,6 +125,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> product = repository.findById(id);
         if(product.isPresent()){//se o id que o usuario passou existe no banco, se é presente no banco
             product.get().setAvailable(false); //setamos o campo pra false ele ele existir
+            repository.save(product.get());
             return true;
         }
         return false;
