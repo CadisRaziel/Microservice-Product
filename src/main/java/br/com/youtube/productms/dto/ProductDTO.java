@@ -22,6 +22,7 @@ public class ProductDTO {
     * caso for retornar, coloque-o aqui
     * */
 
+    private Long id;
     @NotBlank //-> quero que venha ao menos 1 caracter (nao vai aceita nullo)
     private String name;
 

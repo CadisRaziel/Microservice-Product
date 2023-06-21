@@ -28,9 +28,6 @@ public class ProductController {
     public ResponseEntity<ProductDTO> create(@RequestBody @Valid ProductDTO request) {
         //(@RequestBody @Valid ProductDTO request -> o que entra
 
-        //quando eu crio um produto eu quero que ele ja fique disponivel(linha necessaria caso o front nao envie para nos)
-        request.setAvailable(true);
-
         //Optional<ProductDTO> response = service.create(request); -> o que é respondido
         Optional<ProductDTO> response = service.create(request);
 
@@ -67,7 +64,7 @@ public class ProductController {
 
         //Optional -> sempre que colocarmos temos que verificar com o isPresent
         if (response.isPresent()) {
-            return ResponseEntity.ok(request);
+            return ResponseEntity.ok(response.get());
         }
         //caso der false
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -23,16 +23,18 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     //Controller acessa Service e Service acessa repository
     private ProductRepository repository;
+
+    @Autowired
     private ModelMapper mapper;
 
     @Override
     public Optional<ProductDTO> create(ProductDTO request) {
-        /**
+        /*
          * Precisamos:
          * Transformar a request do parametro em objeto de banco
          * e depois transforma o objeto de banco em um response caso os dados for diferentes
          * resumindo: Request -> Model/Entidade -> Response
-         * */
+        */
 
         //--------------Naturalmente fariamos assim!!--------------
         /*
@@ -60,6 +62,9 @@ public class ProductServiceImpl implements ProductService {
         //Porém incluimos o mapper em nosso projeto, e o que esta acima pode ficar assim\/
 
 
+        //quando eu crio um produto eu quero que ele ja fique disponivel(linha necessaria caso o front nao envie para nos)
+        request.setAvailable(true);
+
         //Request -> Origem(product.setName)
         //Product.class -> Destino(request.getName())
         Product product = mapper.map(request, Product.class);
@@ -70,8 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
         //Product -> Origem(response.setName)
         //ProductDTO.class -> Destino(product.getName())
-        ProductDTO response = mapper.map(product, ProductDTO.class);
-        return Optional.of(response);
+        return Optional.of(mapper.map(product, ProductDTO.class));
     }
 
     @Override
@@ -131,11 +135,6 @@ public class ProductServiceImpl implements ProductService {
         return false;
     }
 
-    //TODO falta fazer
-    @Override
-    public Optional<ProductDTO> update(Long id, ProductDTO request) {
-        return Optional.empty();
-    }
 
 
     //diferença de um delete fisico pra um logico
@@ -152,6 +151,20 @@ public class ProductServiceImpl implements ProductService {
         }
         return false;
     }
+
+    @Override
+    public Optional<ProductDTO> update(Long id, ProductDTO request) {
+        Optional<Product> product = repository.findById(id);
+        if(product.isPresent()) {
+            product.get().setDescription(request.getDescription());
+            product.get().setName(request.getName());
+            product.get().setPrice(request.getPrice());
+            repository.save(product.get());
+            return Optional.of(mapper.map(product.get(), ProductDTO.class));
+        }
+        return Optional.empty();
+    }
+
 }
 
 
